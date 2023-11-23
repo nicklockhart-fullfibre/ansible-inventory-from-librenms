@@ -161,3 +161,4 @@ cython_debug/
 
 # Final generated inventory
 inventory.yaml
+inventory/
