@@ -28,10 +28,19 @@ SESSION = requests.Session()
 SESSION.headers = {"X-Auth-Token": LNMS_API_KEY}
 API_ROOT = f"{LNMS_HOST}/api/v0"
 
-# Initialise final structure
-inventory = dict()
-inventory["ungrouped"] = dict()
-inventory["ungrouped"]["hosts"] = dict()
+# Make sure that the inventory folder exists.
+if not os.path.exists("inventory"):
+    print("Creating inventory folder... ", end='')
+    os.mkdir("inventory")
+    print("done.")
+
+# Make sure it's a folder
+if os.path.exists("inventory"):
+    if os.path.isfile("inventory"):
+        print("A file named 'inventory' is present in the script folder.")
+        print("Refusing to continue to prevent this file from getting clobbered.")
+        print("Please remove it and try again.")
+        sys.exit(1)
 
 # Configure the YAML writer to not write "null" for empty tags
 # This is what Ansible wants
@@ -116,7 +125,6 @@ with open("inventory/01-groups.yaml", "w") as groups_file:
 print("done.")
 
 # Create a file with location definitions
-
 all_locations = dict()
 
 print("Creating locations data... ", end='')
