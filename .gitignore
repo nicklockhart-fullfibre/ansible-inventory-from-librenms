@@ -160,5 +160,5 @@ cython_debug/
 #.idea/
 
 # Final generated inventory
-inventory.yaml
-inventory/
+inventory*
+inventory*/
